@@ -1,8 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
-const linkRoutes = require("./routes/linkRoutes");
+const authRoutes = require("./routes/authRoutes.js");
+const linkRoutes = require("./routes/linkRoutes.js");
+const shopRoutes = require("./routes/shopRoutes.js");
 const cors = require("cors");
 dotenv.config();
 connectDB();
@@ -16,10 +17,11 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/links", linkRoutes);
+app.use("/api/shops", shopRoutes);
 
 app.use((err, req, res, next) => {
   console.log("Error in ", req.url, err.message);
-  res.status(500).json({ message: err.message });
+  res.status(400).json({ message: err.message });
 });
 
 module.exports = app;
