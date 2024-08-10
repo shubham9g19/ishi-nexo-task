@@ -1,8 +1,14 @@
 import React from "react";
 import { PiLinktreeLogoBold } from "react-icons/pi";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 function Navbar() {
+  const { token, setToken } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setToken(null);
+    navigate("/login");
+  };
   return (
     <nav className="fixed left-[5.5rem] top-12 h-[5.5rem] bg-white shadow-lg rounded-full z-50 w-[calc(100%-10rem)] mx-auto">
       <div className="flex justify-between space-x-9 px-3">
@@ -47,7 +53,7 @@ function Navbar() {
               Learn
             </a>
             <a
-              href="#"
+              href="/"
               className="text-[rgb(103,107,95)] inline-flex px-3 py-2 rounded-lg hover:bg-[rgb(239,240,236)]"
             >
               <svg
@@ -67,16 +73,34 @@ function Navbar() {
           </div>
         </div>
         <div className="inline-flex items-center ml-20 text-base font-semibold ">
-          <Link to="/login">
-            <button className="border rounded-md bg-[rgb(239,240,236)] w-24 h-16 mx-2 mt-3 ">
-              Log in
-            </button>
-          </Link>
-          <Link to="/signup">
-            <button className="text-[1.15rem] text-white border rounded-full bg-[rgb(30,35,48)] w-40 h-16 mt-3">
-              Sign up free
-            </button>
-          </Link>
+          {token ? (
+            <>
+              <Link to="/profile">
+                <button className="border rounded-md bg-[rgb(239,240,236)] w-24 h-16 mx-2 mt-3 ">
+                  Profile
+                </button>
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-[1.15rem] text-white border rounded-full bg-[rgb(30,35,48)] w-40 h-16 mt-3"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="border rounded-md bg-[rgb(239,240,236)] w-24 h-16 mx-2 mt-3 ">
+                  Log in
+                </button>
+              </Link>
+              <Link to="/signup">
+                <button className="text-[1.15rem] text-white border rounded-full bg-[rgb(30,35,48)] w-40 h-16 mt-3">
+                  Sign up free
+                </button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

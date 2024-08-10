@@ -1,5 +1,11 @@
+import Navbar from "../components/Home/Navbar";
 function LinkTreePage() {
-  return <>LinkTree Page</>;
+  return (
+    <>
+      <Navbar />
+      <div></div>
+    </>
+  );
 }
 
 export default LinkTreePage;
