@@ -9,8 +9,8 @@ import { api } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("sarahwinter17@gmail.com");
+  const [password, setPassword] = useState("password123");
   const navigate = useNavigate();
   const { setToken } = useAuth();
   const handlePasswordToggle = () => {
