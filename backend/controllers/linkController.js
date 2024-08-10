@@ -3,8 +3,18 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/User");
 
 exports.getLinks = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ _id: req.user._id });
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
   const links = await Link.find({ user_id: req.user._id });
-  res.json(links);
+  res.json({
+    links,
+    username: user.username,
+    bio: user.bio,
+    profile_pic: user.profile_pic,
+  });
 });
 
 exports.addLinks = asyncHandler(async (req, res) => {
